@@ -1,0 +1,17 @@
+①given/when/expectEvents的意思是，给(given)一个事件，然后当(when)某个命令被调用时，期待(expectEvents)某个事件被触发。
+
+②Command端Repository和Query端的Database是解耦的，完全可以使用不同的持久化技术。
+可以用MongoDB做Command端的Repository，而MySQL做Query的数据库。
+
+③使用Jackson做序列化器时，对应的entity的所有需要持久化的field必须都有public getter方法，因为Jackson在反射时默认只读public修饰符的field
+在Entity的class声明前加上@JsonAutoDetect(fieldVisibility=JsonAutoDetect.Visibility.ANY)
+
+④Query只需要实现一些EventHandler来处理Command端产生的事件，来更新Query端的数据库就行了。
+
+⑤HATEOAS:The Hypermedia As The Engine Of Application Statue
+
+⑥EventSourcing不保存对象的最新状态，而是保存对象产生的所有事件。
+通过事件回溯(Event Sourcing, ES)得到对象最新的状态
+
+⑦当我们需要这个对象的最新状态时，只要先创建一个空的对象，然后把和改对象相关的所有事件按照发生的先后顺序从先到后全部应用一遍即可。
+这个过程就是事件回溯。
